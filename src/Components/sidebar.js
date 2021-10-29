@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './Sidebar.css';
 // import { catalogData } from './home';
 
-import { connect } from "react-redux";
 
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -12,12 +11,16 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 // import {Button} from 'react-bootstrap'
 
+import { useSelector } from 'react-redux';
+
 
 
 
 
 
 function Sidebar(props) {
+
+    const myState = useSelector((state) => state.clickeditems.clickdata);
 
 
     // var hello = useContext(catalogData);
@@ -59,7 +62,7 @@ function Sidebar(props) {
     }
 
 
-    var x = props.clickdata;
+    var x = myState;
 
 
     var listvalue = x.childNodes;
@@ -90,7 +93,7 @@ function Sidebar(props) {
 
                             <div className="toptext">
                                 <h6>All Catagories</h6>
-                                <p>In {props.clickdata.name}</p>
+                                <p>In {myState.name}</p>
                             </div>
                         </div>
 
@@ -162,12 +165,14 @@ function Sidebar(props) {
     );
 }
 
-const mapStateToProps = state => ({
-    clickdata: state.clickeditems.clickdata
-})
+// const mapStateToProps = state => ({
+//     clickdata: state.clickeditems.clickdata
+// })
 
-const mapDispatchToProps = dispatch => ({
-    //  dataHandler:data => dispatch(clickedData(data))
-})
+// const mapDispatchToProps = dispatch => ({
+//     //  dataHandler:data => dispatch(clickedData(data))
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)
+export default Sidebar
+
+// connect(mapStateToProps, mapDispatchToProps)(Sidebar)

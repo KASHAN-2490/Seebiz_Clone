@@ -4,14 +4,18 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Dropdown, NavDropdown, Button } from 'react-bootstrap';
 // import { catalogData } from './home';
 
-import { connect } from "react-redux";
 import { clickedData } from "../Services/Action/action";
 
+import { useDispatch } from 'react-redux';
 
 
-function Dropdownlist(props) {
+
+
+function Dropdownlist() {
 
     // var { hello } = useContext(catalogData);
+
+    const dispatch = useDispatch();
 
 
     const [data, setData] = useState([])
@@ -47,7 +51,7 @@ function Dropdownlist(props) {
                             return (
 
                                 <div key={item.L1}>
-                                    <NavDropdown.Item href="#action/3.1" className="list" onClick={() => props.dataHandler(item)}>    {/* props.drpdata(item.name)*/}
+                                    <NavDropdown.Item href="#action/3.1" className="list" onClick={() => dispatch(clickedData(item))}>    {/* props.drpdata(item.name)*/}
                                         {/* <i className="fas fa-tshirt"></i>&nbsp; {item.name} */}
                                         {item.name}
 
@@ -110,17 +114,17 @@ function Dropdownlist(props) {
 
 }
 
-const mapStateToProps = state => ({
-    clickdata: state.clickeditems.clickdata.name
-})
+// const mapStateToProps = state => ({
+//     clickdata: state.clickeditems.clickdata.name
+// })
 
-const mapDispatchToProps = dispatch => ({
-    dataHandler: data => dispatch(clickedData(data))
-})
+// const mapDispatchToProps = dispatch => ({
+//     dataHandler: data => dispatch(clickedData(data))
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dropdownlist)
+export default Dropdownlist
 
-
+// connect(mapStateToProps, mapDispatchToProps)(Dropdownlist)
 
 
 

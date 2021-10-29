@@ -1,4 +1,4 @@
-import { Add_data } from "../constant"
+// import { Add_data } from "../constant"
 
 const initialState = {
     clickdata: []
@@ -6,7 +6,7 @@ const initialState = {
 
 export default function clickeditems(state = initialState, action) {
     switch (action.type) {
-        case Add_data:
+        case "ADD_data":
             // console.log(action);
             return {
                 ...state,
