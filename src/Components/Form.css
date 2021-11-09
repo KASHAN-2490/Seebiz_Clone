@@ -19,8 +19,7 @@
   .form1 {
     width: 50%;
     height: 10%;
-    padding: 40px;
-    margin-left: 90px;
+    padding-top: 40px;
   }
   
   .formheading {
@@ -37,6 +36,7 @@
 
   .formheading h6 {
     padding-top: 20px;
+
   }
 
 
@@ -50,7 +50,7 @@
 
   .btndiv p {
     margin-top: 20px;
-    font-size: 10px;
+    font-size: 12px;
   }
   
   .ortext {
@@ -91,9 +91,27 @@
     display: flex;
   }
 
-.Subbtn {
+  .mb-3 {
+    padding-top: 10px;
+  }
+
+  .forgot:hover{
+    cursor: pointer;
+  }
+
+  .star {
+    color: #dd2c00!important;
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+
+.checkbox {
+  padding-top: 10px;
+}  
+
+.subbtn {
   text-align: center;
-  padding-top: 20px;
+  padding-top: 25px;
 }
 
 .ortext2 {

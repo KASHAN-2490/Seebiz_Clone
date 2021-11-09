@@ -7,30 +7,21 @@ import { useHistory } from 'react-router-dom';
 import logo from '../logo.svg';
 
 
-
+const initialstate = {
+    username: "",
+    email: "",
+    password: "",
+    checkbox: false,
+    usererr: "",
+    passerr: "",
+    mailerr: "",
+    checkerr: ""
+}
 
 function SignupForm() {
 
-    const History = useHistory();
 
-    const [state, setState] = useState({
-        name: "",
-        username: "",
-        radio: "",
-        email: "",
-        password: "",
-        degree: "",
-        skills: []
-
-    })
-
-    const nameHandler = (e) => {
-        const names = e.target.value;
-        setState(prevState => ({
-            ...prevState,
-            name: names
-        }));
-    }
+    const [state, setState] = useState(initialstate)
 
     const usernameHandler = (e) => {
         const unames = e.target.value;
@@ -38,15 +29,36 @@ function SignupForm() {
             ...prevState,
             username: unames
         }));
+
+        const regusername = new RegExp('^([a-z]){1,1}([a-z0-9_]){4,10}$');
+
+        if (unames === "") {
+            setState(prevState => ({
+                ...prevState,
+                usererr: "User Name is required"
+            }));
+
+        } else if (unames.trim().length > 10) {
+            setState(prevState => ({
+                ...prevState,
+                usererr: "needs to be at least ten characters"
+            }));
+
+        } else if (regusername.test(unames)) {
+            setState(prevState => ({
+                ...prevState,
+                usererr: ""
+            }));
+
+        } else {
+            setState(prevState => ({
+                ...prevState,
+                usererr: 'Only ( _ ) special character and small alphabets and numaric values are allowed.'
+            }));
+        }
+
     }
 
-    const radioHandler = (e) => {
-        const radioval = e.target.value;
-        setState(prevState => ({
-            ...prevState,
-            radio: radioval
-        }));
-    }
 
     const emailHandler = (e) => {
         const emails = e.target.value;
@@ -54,6 +66,27 @@ function SignupForm() {
             ...prevState,
             email: emails
         }));
+
+        const regemail = new RegExp('^[a-z0-9_.]{3,10}@[a-z]{5}.com$');
+
+        if (emails === "") {
+            setState(prevState => ({
+                ...prevState,
+                mailerr: "Email is required"
+            }));
+
+        } else if (regemail.test(emails)) {
+            setState(prevState => ({
+                ...prevState,
+                mailerr: ""
+            }));
+
+        } else {
+            setState(prevState => ({
+                ...prevState,
+                mailerr: 'Please enter a valid email address.'
+            }));
+        }
     }
 
     const passwordHandler = (e) => {
@@ -62,42 +95,56 @@ function SignupForm() {
             ...prevState,
             password: passwords
         }));
+
+        const regpassword = new RegExp('^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*()_.]{8,20}$');
+
+        if (passwords === "") {
+            setState(prevState => ({
+                ...prevState,
+                passerr: "Password is required"
+            }));
+
+        } else if (passwords.trim().length < 8 || passwords.trim().length > 20) {
+            setState(prevState => ({
+                ...prevState,
+                passerr: "Password length must be between 8 or 20 words"
+            }));
+
+        } else if (regpassword.test(passwords)) {
+            setState(prevState => ({
+                ...prevState,
+                passerr: ""
+            }));
+
+        } else {
+            setState(prevState => ({
+                ...prevState,
+                passerr: "Contains a number, a special character and combine uppercase and lowercase letters."
+            }));
+        }
     }
 
-    const degreeHandler = (e) => {
-        const degrees = e.target.value;
+    const checkHandler = () => {
+        // const checkval = e.target.value;
         setState(prevState => ({
             ...prevState,
-            degree: degrees
+            checkbox: !state.checkbox
         }));
+
+        if (state.checkbox === false) {
+            setState(prevState => ({
+                ...prevState,
+                checkerr: " "
+            }));
+        } else {
+            setState(prevState => ({
+                ...prevState,
+                checkerr: "Please accept Terms & condtions."
+            }));
+        }
     }
 
-
-    const skillsHandler = () => {
-        const skillVal = [];
-
-        const jsValue = document.getElementById("Check1");
-        const cssValue = document.getElementById("Check2");
-        const htmlValue = document.getElementById("Check3");
-
-        if (jsValue.checked === true) {
-            skillVal.push(jsValue.value);
-        }
-
-        if (cssValue.checked === true) {
-            skillVal.push(cssValue.value);
-        }
-
-        if (htmlValue.checked === true) {
-            skillVal.push(htmlValue.value);
-        }
-
-        setState(prevState => ({
-            ...prevState,
-            skills: skillVal
-        }));
-    }
-
+    // console.log(state.checkbox)
 
     const history = useHistory();
 
@@ -110,96 +157,61 @@ function SignupForm() {
     }
 
 
-    const formSubmit = (e) => {
+    const formSubmit = async (e) => {
         e.preventDefault();
 
-        // input fields Validation
+        if (state.checkbox === false) {
+            setState(prevState => ({
+                ...prevState,
+                checkerr: "Please accept Terms & condtions."
+            }));
+        }
 
-        const regname = new RegExp('^[A-Za-z ]{3,20}$');
-        const regusername = new RegExp('^([a-z]){1,1}([a-z0-9_]){4,10}$');
-        const regemail = new RegExp('^[a-z0-9_.]{4,10}@[a-z]{5}.com$');
-        const regpassword = new RegExp('^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*()_.]{8,20}$');
 
-        if (regname.test(state.name)) {
-            console.log(state.name)
-            console.log("name is valid");
+        if (state.usererr === "" && state.passerr === "" && state.mailerr === "" && state.checkerr === " " ) {
+            setState(initialstate);
+
+            const { username, email, password, checkbox } = state
+
+            let info = {
+                username: username,
+                email: email,
+                password: password,
+                checkbox: checkbox
+            }
+
+            try {
+                const res = await fetch("http://localhost:7000/signup", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(info)
+                })
+                const data = await res.json();
+                alert(data.msg);
+
+                if (data.key === true) {
+                    history.push('/signin');
+                }
+
+
+            } catch (err) {
+                console.log(err);
+            }
+
 
         } else {
-            document.getElementById("nameerr").innerHTML = "Name length must be between 3 or 20 words and only Alphabets.";
+            alert("Please select all fields correctly.")
         }
 
-        if (regusername.test(state.username)) {
-            console.log(state.username)
-            console.log("user name is valid");
-
-        } else {
-            document.getElementById("usererr1").innerHTML = "Username length must be between 3 or 20 words <br />";
-            document.getElementById("usererr2").innerHTML = "Start with Alphabets <br />";
-            document.getElementById("usererr3").innerHTML = "Contains a Number and Underscore";
-        }
-
-        if (regemail.test(state.email)) {
-            console.log(state.email);
-            console.log("email is valid");
-        } else {
-            document.getElementById("email").innerHTML = "Please provide correct email with .com at the end";
-        }
-
-
-        if (regpassword.test(state.password)) {
-            console.log(state.password);
-            console.log("password is valid");
-        } else {
-            document.getElementById("password1").innerHTML = "Password length must be between 8 or 20 words <br />";
-            document.getElementById("password2").innerHTML = "Contains a number and combine uppercase and lowercase letters <br />";
-            document.getElementById("password3").innerHTML = "Contains a special character";
-        }
-
-        // radio button validation
-
-        if (state.radio !== "") {
-            console.log(state.radio);
-        } else {
-            document.getElementById("radioerr").innerHTML = "Please select Gender field";
-        }
-
-        // check box validation
-
-        if (state.skills.length !== 0) {
-            console.log(state.skills)
-        } else {
-            document.getElementById("skillserr").innerHTML = "Please select Skills field <br />";
-        }
-
-        // select box validation  
-
-        if (state.degree !== "") {
-            console.log(state.degree);
-        } else {
-            document.getElementById("degreerr").innerHTML = "Please select Degree field <br />";
-        }
-
-        // Save data in Local Storage
-
-        if (state.name !== "" && state.username !== "" && state.email !== "" && state.password !== ""
-            && state.radio !== "" && state.degree !== "" && state.skills.length !== 0) {
-
-            localStorage.setItem(state.email, JSON.stringify(state));
-            document.getElementById("forms").reset();
-
-            alert("Form is Submited Now Log in");
-
-            History.push('/signin');
-        }
-
-        console.log(state);
     }
 
     return (
         <div className="container1 mt-5">
 
             <div className="formheading"><img src={logo} alt="logo" className="logo" onClick={goback} />
-                <h6>Sign in to your SeeBiz account</h6>
+                <h6>Register with SeeBiz</h6>
             </div>
 
             <div className="btndiv">
@@ -207,7 +219,7 @@ function SignupForm() {
                 <Button variant="primary" className="sbtn"><i className="fab fa-facebook-f"></i></Button>
                 <Button variant="info" className="sbtn"><i className="fab fa-linkedin-in"></i></Button>
 
-                <p><b>Sign in with your social media account</b></p>
+                <p><b>Sign up with your social media account</b></p>
             </div>
 
             <div className="ortext offset-sm-4">
@@ -215,107 +227,36 @@ function SignupForm() {
             </div>
 
             <div className="formParent offset-sm-4">
-                <Form className="form" id="forms" action="#" onSubmit={formSubmit}>
-
-                    <Form.Group className="mb-3" controlId="name">
-                        <Form.Label><b>Full Name</b></Form.Label>
-                        <Form.Control type="text" value={state.name} placeholder="Enter Name" onChange={nameHandler} required />
-                        <span id="nameerr" className="text-danger font-weight-bold"></span>
-                    </Form.Group>
+                <Form className="form" id="forms" onSubmit={formSubmit} method="POST">
 
                     <Form.Group className="mb-3" controlId="username">
-                        <Form.Label><b>User Name</b></Form.Label>
-                        <Form.Control type="text" value={state.username} placeholder="Enter User Name" onChange={usernameHandler} required />
-                        <span id="usererr1" className="text-danger font-weight-bold"></span>
-                        <span id="usererr2" className="text-danger font-weight-bold"></span>
-                        <span id="usererr3" className="text-danger font-weight-bold"></span>
+                        <Form.Label>User Name <span className="star">*</span></Form.Label>
+                        <Form.Control type="text" value={state.username} onChange={usernameHandler} />
+                        <span className="text-danger font-weight-bold">{state.usererr}</span>
+                        {/* <span id="usererr" className="text-danger font-weight-bold"></span> */}
                     </Form.Group>
-
-                    <Form.Label><b>Gender :</b></Form.Label>
-                    <br />
-                    {['radio'].map((type) => (
-                        <div key={`inline-${type}`} className="mb-3" value={state.radio} onChange={radioHandler} >
-                            <Form.Check
-                                inline
-                                label="Male"
-                                name="group1"
-                                value="Male"
-                                type={type}
-                                id={`inline-${type}-1`}
-                            />
-                            <Form.Check
-                                inline
-                                label="Female"
-                                name="group1"
-                                value="Female"
-                                type={type}
-                                id={`inline-${type}-2`}
-                            />
-                            <span id="radioerr" className="text-danger font-weight-bold"></span>
-                        </div>
-
-                    ))}
 
 
                     <Form.Group className="mb-3" controlId="formGroupEmail">
-                        <Form.Label><b>Email address</b></Form.Label>
-                        <Form.Control type="email" value={state.email} placeholder="Enter email" onChange={emailHandler} required />
-                        <span id="email" className="text-danger font-weight-bold"></span>
+                        <Form.Label>Email address <span className="star">*</span></Form.Label>
+                        <Form.Control type="email" value={state.email} onChange={emailHandler} />
+                        <span className="text-danger font-weight-bold">{state.mailerr}</span>
                     </Form.Group>
+
 
                     <Form.Group className="mb-3" controlId="formGroupPassword">
-                        <Form.Label><b>Password</b></Form.Label>
-                        <Form.Control type="password" value={state.password} placeholder="Enter Password" onChange={passwordHandler} required />
-                        <span id="password1" className="text-danger font-weight-bold"></span>
-                        <span id="password2" className="text-danger font-weight-bold"></span>
-                        <span id="password3" className="text-danger font-weight-bold"></span>
+                        <Form.Label>Password <span className="star">*</span></Form.Label>
+                        <Form.Control type="password" value={state.password} onChange={passwordHandler} />
+                        <span className="text-danger font-weight-bold">{state.passerr}</span>
                     </Form.Group>
 
-                    <label>
-                        <b>Pick your Degree tittle:</b>
-                        <select className="form-select" value={state.degree} onChange={degreeHandler}>
-                            <option value="Degree">Degree</option>
-                            <option value="Bachelor">Bachelor</option>
-                            <option value="Inter">Inter</option>
-                            <option value="Matric">Matric</option>
-                        </select>
-                    </label>
-                    <span id="degreerr" className="text-danger font-weight-bold"></span>
 
-                    <br /><br />
+                    <Form.Group className="checkbox" controlId="formBasicCheckbox" value={state.checkbox} onChange={checkHandler}>
+                        <Form.Check type="checkbox" label="I agree to the Terms of Use and Privacy Policy" />
+                        <span className="text-danger font-weight-bold">{state.checkerr}</span>
+                    </Form.Group>
 
-                    <Form.Label><b>Skills</b></Form.Label>
-                    {['checkbox'].map((type) => (
-                        <div key={`inline-${type}`} className="mb-3" value={state.skills} onChange={skillsHandler}>
-                            <Form.Check
-                                inline
-                                label="Js"
-                                name="group2"
-                                value="Js"
-                                type={type}
-                                id="Check1"
-                            />
-                            <Form.Check
-                                inline
-                                label="Css"
-                                name="group2"
-                                value="Css"
-                                type={type}
-                                id="Check2"
-                            />
-                            <Form.Check
-                                inline
-                                label="Html"
-                                name="group2"
-                                value="Html"
-                                type={type}
-                                id="Check3"
-                            />
-                            <span id="skillserr" className="text-danger font-weight-bold"></span>
-                        </div>
-                    ))}
-
-                    <div className="Subbtn">
+                    <div className="subbtn">
                         <Button variant="secondary" onClick={goback}>Cancel</Button>
                         <span className="offset-sm-1"></span>
                         <Button type="submit" variant="success">Submit</Button>
@@ -325,26 +266,9 @@ function SignupForm() {
 
                     <p className="para" onClick={signin}>Sign In</p>
 
-                    {/* <link to ="index.html" style="margin-left: 20px;">Back to Home</a> */}
 
-
-                </Form>  </div>
-
-            {/* <div className="otherpart" >
-                <br />
-                <h1>Interprise <br /> Productivity,<br /> Redefined</h1>
-
-                <p><b>This form has the default HTML form behavior of browsing to a new page when the user submits the form.
-                    If you want this behavior in React, it just works. But in most cases,
-                    it’s convenient to have a JavaScript function that handles the submission of the form and has access to the data that the user entered into the form.
-                    The standard way to achieve this is with a technique called “controlled components”.</b></p>
-
-                <p>We can combine the two by making the React state be the “single source of truth”.
-                    Then the React component that renders a form also controls what happens in that form on subsequent user input.
-                </p>
-
-                <br />
-            </div> */}
+                </Form>
+            </div>
 
         </div>
     )

@@ -7,16 +7,13 @@ import logo from '../logo.svg';
 
 import { useHistory } from "react-router-dom";
 
-
-
-
-
+const initialstate = { email: "", password: "", mailerr: "", passerr: "" }
 
 
 function Signin() {
 
 
-  const [state, setState] = useState({ email: "", password: "" })
+  const [state, setState] = useState(initialstate)
 
   const emailHandler = (e) => {
     var emails = e.target.value;
@@ -24,6 +21,27 @@ function Signin() {
       ...prevState,
       email: emails
     }));
+
+    const regemail = new RegExp('^[a-z0-9_.]{3,10}@[a-z]{5}.com$');
+
+    if (emails === "") {
+      setState(prevState => ({
+        ...prevState,
+        mailerr: "Email is required"
+      }));
+
+    } else if (regemail.test(emails)) {
+      setState(prevState => ({
+        ...prevState,
+        mailerr: ""
+      }));
+
+    } else {
+      setState(prevState => ({
+        ...prevState,
+        mailerr: 'Please enter a valid email address.'
+      }));
+    }
   }
 
 
@@ -33,6 +51,13 @@ function Signin() {
       ...prevState,
       password: passwords
     }));
+
+    if (passwords === "") {
+      setState(prevState => ({
+        ...prevState,
+        passerr: "Password is required"
+      }));
+    }
   }
 
   const history = useHistory();
@@ -46,40 +71,54 @@ function Signin() {
   }
 
 
-  const formSubmit = (e) => {
+  const formSubmit = async (e) => {
 
     e.preventDefault();
-    // console.log(state.email);
-    // console.log(state.password)
 
-    const regemail = new RegExp('^[a-z0-9_.]{4,10}@[a-z]{5}.com$');
 
-    if (regemail.test(state.email)) {
-      console.log(state.email);
-      console.log("email is valid");
-    } else {
-      document.getElementById("email").innerHTML = "Please provide correct email with .com at the end";
+    const { email, password } = state
+
+    let info = {
+      email: email,
+      password: password,
     }
 
-    if (state.email !== "" && state.password !== "") {
+    try {
+      const res = await fetch("http://localhost:7000/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(info)
+      })
+      const data = await res.json();
+      alert(data.msg);
+      setState(initialstate);
 
-      var users = localStorage.getItem(state.email);
-      var user = JSON.parse(users);
-      if (user) {
-        if (user.password === state.password) {
-
-          // window.sessionStorage.setItem(true, JSON.stringify(user));
-          alert("user id valid")
-
-
-        } else {
-          alert("Password is incorrect");
-        }
-
-      } else {
-        alert("no user found");
-      }
+    } catch (err) {
+      console.log(err);
     }
+
+
+    // if (state.email !== "" && state.password !== "") {
+
+    //   var users = localStorage.getItem(state.email);
+    //   var user = JSON.parse(users);
+    //   if (user) {
+    //     if (user.password === state.password) {
+
+    //       // window.sessionStorage.setItem(true, JSON.stringify(user));
+    //       alert("user id valid")
+
+
+    //     } else {
+    //       alert("Password is incorrect");
+    //     }
+
+    //   } else {
+    //     alert("no user found");
+    //   }
+    // }
 
 
   }
@@ -87,7 +126,7 @@ function Signin() {
   return (
     <div className="container1 mt-5 ">
       {/* offset-sm-3"  to center the form */}
-                                                   
+
       <div className="formheading"><img src={logo} alt="logo" className="logo" onClick={goback} />
         <h6>Sign in to your SeeBiz account</h6>
       </div>
@@ -104,31 +143,29 @@ function Signin() {
         <span className="spans"><p>or</p></span>
       </div>
 
-      <div className="formParent offset-sm-3">
-        <Form action="#" className="form1" id="forms" onSubmit={formSubmit}>
+      <div className="formParent offset-sm-4">
+        <Form className="form1" id="forms" onSubmit={formSubmit} method="POST">
 
           <Form.Group className="mb-3" controlId="formGroupEmail">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>Email address <span className="star">*</span></Form.Label>
             <Form.Control type="email" value={state.email} placeholder="Enter email" onChange={emailHandler} className="input" required />
-            <span id="email" className="text-danger font-weight-bold"></span>
+            <span className="text-danger font-weight-bold">{state.mailerr}</span>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formGroupPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Password <span className="star">*</span></Form.Label>
             <Form.Control type="password" value={state.password} placeholder="Enter Password" onChange={passwordHandler} required />
-            <span id="password1" className="text-danger font-weight-bold"></span>
-            <span id="password2" className="text-danger font-weight-bold"></span>
-            <span id="password3" className="text-danger font-weight-bold"></span>
+            <span className="text-danger font-weight-bold">{state.passerr}</span>
           </Form.Group>
 
           <div className="checkb">
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
               <Form.Check type="checkbox" label="Remember Me" />
             </Form.Group>
-            <span className="offset-sm-5">Forgot Password?</span>
+            <span className="offset-sm-5 forgot">Forgot Password?</span>
           </div>
 
-          <div className="Subbtn">
+          <div className="subbtn">
             <Button variant="secondary" onClick={goback}>Cancel</Button>
             <span className="offset-sm-1"></span>
             <Button type="submit" variant="success">Submit</Button>
