@@ -136,6 +136,7 @@ function Sidebar(props) {
                                                                 return (
 
                                                                     <ListItemButton sx={{ pl: 4 }} key={data2.slug}>
+                                                                        <i className="fas fa-circle crl"></i>
                                                                         <ListItemText primary={data2.name} key={data2.id} onClick={() => props.link1(data2.breadcrumb)} />
                                                                     </ListItemButton>
 

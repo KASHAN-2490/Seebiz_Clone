@@ -4,6 +4,7 @@ import { Image } from 'react-bootstrap';
 import img from '../images/fedex-ad.jfif'
 import img2 from '../images/ims-ad.jfif'
 import { Divider } from '@mui/material';
+import List from '@mui/material/List';
 
 
 
@@ -26,76 +27,85 @@ function Sidebar2() {
             </div>
 
             <Divider />
-            <br />
-            
-            <div>
+            {/* <br /> */}
 
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>The Advantages of Domestic Sourcing and International Supply Chains</li>
-                </ul>
+            <List
+                sx={{
+                    width: '100%', bgcolor: 'background.paper', height: "auto", overflow: 'auto',
+                    maxHeight: 600, paddingTop: 2,
+                }}
+                component="nav"
+                aria-labelledby="nested-list-subheader" >
 
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>Wholesale Business and the U.S. Wholesale Economy</li>
-                </ul>
+                {/* <div>  */}
 
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>SeeBiz Companies: North Star Printing</li>
-                </ul>
-                
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>SeeBiz Companies: Ace Sewing Machine Company</li>
-                </ul>
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>The Advantages of Domestic Sourcing and International Supply Chains</li>
+                    </ul>
 
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>SeeBiz Companies: Ace Handbags</li>
-                </ul>
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>Wholesale Business and the U.S. Wholesale Economy</li>
+                    </ul>
 
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>SeeBiz Companies: Islands Fabrics</li>
-                </ul>
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>SeeBiz Companies: North Star Printing</li>
+                    </ul>
 
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>SeeBiz Companies: K&S Wholesale</li>
-                </ul>
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>SeeBiz Companies: Ace Sewing Machine Company</li>
+                    </ul>
 
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>SeeBiz Companies: Perfumes Los Angeles</li>
-                </ul>
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>SeeBiz Companies: Ace Handbags</li>
+                    </ul>
 
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>SeeBiz Companies: Islands Fabrics</li>
-                </ul>
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>SeeBiz Companies: Islands Fabrics</li>
+                    </ul>
 
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>SeeBiz Companies: K&S Wholesale</li>
-                </ul>
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>SeeBiz Companies: K&S Wholesale</li>
+                    </ul>
 
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>SeeBiz Companies: Perfumes Los Angeles</li>
-                </ul>
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>SeeBiz Companies: Perfumes Los Angeles</li>
+                    </ul>
 
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>SeeBiz Companies: K&S Wholesale</li>
-                </ul>
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>SeeBiz Companies: Islands Fabrics</li>
+                    </ul>
 
-                <ul className="listing">
-                    <span><i className="fas fa-angle-double-right"></i></span>
-                    <li>SeeBiz Companies: Perfumes Los Angeles</li>
-                </ul>
-               
-            </div>
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>SeeBiz Companies: K&S Wholesale</li>
+                    </ul>
+
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>SeeBiz Companies: Perfumes Los Angeles</li>
+                    </ul>
+
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>SeeBiz Companies: K&S Wholesale</li>
+                    </ul>
+
+                    <ul className="listing">
+                        <span><i className="fas fa-angle-double-right"></i></span>
+                        <li>SeeBiz Companies: Perfumes Los Angeles</li>
+                    </ul>
+
+                {/* </div> */}
+            </List>
 
         </div>
     )
