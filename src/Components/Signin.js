@@ -9,11 +9,15 @@ import { useHistory } from "react-router-dom";
 
 const initialstate = { email: "", password: "", mailerr: "", passerr: "" }
 
+const initialval = {success: "", errormsg: ""};
+
 
 function Signin() {
 
 
   const [state, setState] = useState(initialstate)
+
+  const [message, setMessage] = useState(initialval)
 
   const emailHandler = (e) => {
     var emails = e.target.value;
@@ -44,6 +48,7 @@ function Signin() {
     }
   }
 
+  const regpassword = new RegExp('[a-zA-Z0-9_.]{1,10}');
 
   const passwordHandler = (e) => {
     var passwords = e.target.value;
@@ -57,7 +62,14 @@ function Signin() {
         ...prevState,
         passerr: "Password is required"
       }));
+
+    } else if (regpassword.test(passwords)) {
+      setState(prevState => ({
+        ...prevState,
+        passerr: ""
+      }));
     }
+
   }
 
   const history = useHistory();
@@ -76,6 +88,22 @@ function Signin() {
     e.preventDefault();
 
 
+    // if (state.email === "") {
+    //   setState(prevState => ({
+    //     ...prevState,
+    //     mailerr: "Email is required"
+    //   }));
+    // }
+
+    // if (state.password === "") {
+    //   setState(prevState => ({
+    //     ...prevState,
+    //     passerr: "Password is required"
+    //   }));
+    // }
+
+    // if (state.mailerr === "" && state.passerr === "") {
+
     const { email, password } = state
 
     let info = {
@@ -92,34 +120,40 @@ function Signin() {
         body: JSON.stringify(info)
       })
       const data = await res.json();
-      alert(data.msg);
-      setState(initialstate);
+
+      if (data.emailmsg) {
+        setState(prevState => ({
+          ...prevState,
+          mailerr: data.emailmsg
+        }));
+      } else if (data.passmsg) {
+        setState(prevState => ({
+          ...prevState,
+          passerr: data.passmsg
+        }));
+      } else if (data.msg) {
+        setMessage(prevState => ({
+          ...prevState,
+          success: data.msg
+        }));
+        setState(initialstate);
+        document.getElementById("forms").reset();
+        setTimeout(function () { setMessage(initialval) }, 3000);
+        
+      } else if (data.errmsg) {
+        setMessage(prevState => ({
+          ...prevState,
+          errormsg: data.errmsg
+        }));;
+        setTimeout(function () { setMessage(initialval) }, 2000);
+      }
+      
 
     } catch (err) {
       console.log(err);
     }
 
-
-    // if (state.email !== "" && state.password !== "") {
-
-    //   var users = localStorage.getItem(state.email);
-    //   var user = JSON.parse(users);
-    //   if (user) {
-    //     if (user.password === state.password) {
-
-    //       // window.sessionStorage.setItem(true, JSON.stringify(user));
-    //       alert("user id valid")
-
-
-    //     } else {
-    //       alert("Password is incorrect");
-    //     }
-
-    //   } else {
-    //     alert("no user found");
-    //   }
     // }
-
 
   }
 
@@ -148,13 +182,13 @@ function Signin() {
 
           <Form.Group className="mb-3" controlId="formGroupEmail">
             <Form.Label>Email address <span className="star">*</span></Form.Label>
-            <Form.Control type="email" value={state.email} placeholder="Enter email" onChange={emailHandler} className="input" required />
+            <Form.Control type="email" value={state.email} placeholder="Enter email" onChange={emailHandler} className="input" />
             <span className="text-danger font-weight-bold">{state.mailerr}</span>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formGroupPassword">
             <Form.Label>Password <span className="star">*</span></Form.Label>
-            <Form.Control type="password" value={state.password} placeholder="Enter Password" onChange={passwordHandler} required />
+            <Form.Control type="password" value={state.password} placeholder="Enter Password" onChange={passwordHandler} />
             <span className="text-danger font-weight-bold">{state.passerr}</span>
           </Form.Group>
 
@@ -171,22 +205,15 @@ function Signin() {
             <Button type="submit" variant="success">Submit</Button>
           </div>
 
-          <div className="ortext2"></div>
+          <div className="message">
+            <span className="text-success font-weight-bold">{message.success}</span>
+            <span className="text-danger font-weight-bold">{message.errormsg}</span>
+            <div className="ortext2"></div>
+          </div>
 
           <p className="para" onClick={Register}>Register</p>
 
         </Form>
-
-        {/* <div className="otherpart" >
-        <br /> 
-        <h1>Interprise <br /> Productivity,<br /> Redefined</h1>
-
-        <p>We can combine the two by making the React state be the “single source of truth”.
-          Then the React component that renders a form also controls what happens in that form on subsequent user input.
-          An input form element whose value is controlled by React in this way is called a “controlled component”.</p>
-
-        <br />
-      </div> */}
 
       </div>
 

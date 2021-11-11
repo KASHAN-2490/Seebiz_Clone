@@ -18,10 +18,16 @@ const initialstate = {
     checkerr: ""
 }
 
+const initialval = "";
+
 function SignupForm() {
 
 
+
+
     const [state, setState] = useState(initialstate)
+
+    const [success, setSuccess] = useState(initialval)
 
     const usernameHandler = (e) => {
         const unames = e.target.value;
@@ -144,7 +150,6 @@ function SignupForm() {
         }
     }
 
-    // console.log(state.checkbox)
 
     const history = useHistory();
 
@@ -156,6 +161,7 @@ function SignupForm() {
         history.push('/signin');
     }
 
+    //      Form Submission
 
     const formSubmit = async (e) => {
         e.preventDefault();
@@ -167,9 +173,30 @@ function SignupForm() {
             }));
         }
 
+        if (state.username === "") {
+            setState(prevState => ({
+                ...prevState,
+                usererr: "User Name is required"
+            }));
+        }
 
-        if (state.usererr === "" && state.passerr === "" && state.mailerr === "" && state.checkerr === " " ) {
-            setState(initialstate);
+        if (state.email === "") {
+            setState(prevState => ({
+                ...prevState,
+                mailerr: "Email is required"
+            }));
+        }
+
+        if (state.password === "") {
+            setState(prevState => ({
+                ...prevState,
+                passerr: "Password is required"
+            }));
+
+        }
+
+
+        if (state.usererr === "" && state.passerr === "" && state.mailerr === "" && state.checkerr === " ") {
 
             const { username, email, password, checkbox } = state
 
@@ -189,10 +216,25 @@ function SignupForm() {
                     body: JSON.stringify(info)
                 })
                 const data = await res.json();
-                alert(data.msg);
 
-                if (data.key === true) {
-                    history.push('/signin');
+                if (data.usermsg) {
+                    setState(prevState => ({
+                        ...prevState,
+                        usererr: data.usermsg
+                    }));
+                } else if (data.emailmsg) {
+                    setState(prevState => ({
+                        ...prevState,
+                        mailerr: data.emailmsg
+                    }));
+                } else if (data.key === true) {
+                    setSuccess(data.msg);
+
+                    document.getElementById("forms").reset();
+                    setState(initialstate);
+                    // alert(data.msg);
+                    //     history.push('/signin');
+                    setTimeout(function () { setSuccess(initialval) }, 3000);
                 }
 
 
@@ -201,8 +243,6 @@ function SignupForm() {
             }
 
 
-        } else {
-            alert("Please select all fields correctly.")
         }
 
     }
@@ -251,7 +291,7 @@ function SignupForm() {
                     </Form.Group>
 
 
-                    <Form.Group className="checkbox" controlId="formBasicCheckbox" value={state.checkbox} onChange={checkHandler}>
+                    <Form.Group className="checkbox" controlId="formBasicCheckbox" value={state.checkbox} onClick={checkHandler}>
                         <Form.Check type="checkbox" label="I agree to the Terms of Use and Privacy Policy" />
                         <span className="text-danger font-weight-bold">{state.checkerr}</span>
                     </Form.Group>
@@ -262,8 +302,10 @@ function SignupForm() {
                         <Button type="submit" variant="success">Submit</Button>
                     </div>
 
-                    <div className="ortext2"></div>
-
+                    <div className="message">
+                        <span className="text-success font-weight-bold">{success}</span>
+                        <div className="ortext2"></div>
+                    </div>
                     <p className="para" onClick={signin}>Sign In</p>
 
 

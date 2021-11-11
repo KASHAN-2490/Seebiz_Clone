@@ -87,6 +87,10 @@
     width: 300px;
   }
 
+  .checkb {
+    display: flex;
+  }
+  
   .mb-3 {
     padding-top: 10px;
   }
@@ -110,6 +114,11 @@
   padding-top: 25px;
 }
 
+.message {
+  margin-top: 40px;
+  text-align: center;
+}
+
 .ortext2 {
   /* float: left; */
   width: 100%;
@@ -117,7 +126,7 @@
   text-align: center;
   border-top: 1px solid gray;
   position: relative;
-  margin-top: 40px;
+  margin-top: 10px;
 }
 
 .para {
