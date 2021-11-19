@@ -32,7 +32,7 @@ function Sidebar2() {
             <List
                 sx={{
                     width: '100%', bgcolor: 'background.paper', height: "auto", overflow: 'auto',
-                    maxHeight: 600, paddingTop: 2,
+                    maxHeight: 600, paddingTop: 1,
                 }}
                 component="nav"
                 aria-labelledby="nested-list-subheader" >
