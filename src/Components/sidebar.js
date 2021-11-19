@@ -45,19 +45,6 @@ function Sidebar(props) {
             setOpen(newOpen)
            } 
 
-        // switch (arr.indexOf(id)) {
-        //     case 0:
-        //         setOpen(!open)
-        //         break;
-        //     case 1:
-        //         setOpen(!open)
-        //         break;
-        //     case 2:
-        //         setOpen(!open)
-        //         break;
-        //     default:
-        //         setOpen(open)
-        // }
 
     }
 

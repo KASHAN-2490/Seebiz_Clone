@@ -126,11 +126,13 @@ function Signin() {
           ...prevState,
           mailerr: data.emailmsg
         }));
+
       } else if (data.passmsg) {
         setState(prevState => ({
           ...prevState,
           passerr: data.passmsg
         }));
+        
       } else if (data.msg) {
         setMessage(prevState => ({
           ...prevState,
@@ -229,92 +231,3 @@ export default Signin;
 
 
 
-
-                            //        Class Component
-
-
-
-// class Signin extends React.Component {
-//   constructor() {
-//     super()
-//     this.state = {
-//       email: "",
-//       password: ""
-
-//     }
-//   }
-
-//   emailHandler = (e) => {
-//     const emails = e.target.value;
-//     this.setState({ email: emails })
-//   }
-
-//   passwordHandler = (e) => {
-//     const passwords = e.target.value;
-//     this.setState({ password: passwords })
-//   }
-
-//   formSubmit = () => {
-
-//     const regemail = new RegExp('^[a-z0-9_.]{5,10}@[a-z]{5}.com$');
-
-//     if (regemail.test(this.state.email)) {
-//       console.log(this.state.email);
-//       console.log("email is valid");
-//     } else {
-//       document.getElementById("email").innerHTML = "Please provide correct email with .com at the end";
-//     }
-
-//     if (this.state.email !== "" && this.state.password !== "") {
-
-//       var users = localStorage.getItem(this.state.email);
-//       var user = JSON.parse(users);
-//       if (user) {
-//         if (user.password === this.state.password) {
-//           document.getElementById("forms").reset();
-//           // dispatch({type:"USER", payload:true})
-//           alert("User is Valid");
-
-
-//         } else {
-//           alert("Password is incorrect");
-//         }
-
-//       } else {
-//         alert("no user found");
-//       }
-//     }
-
-//   }
-
-
-//   render() {
-
-//     return (
-//       <div className="App">
-//         <h1>Sign</h1>
-//         <Form action="#" className="form" id="forms" onSubmit={this.formSubmit}>
-
-//           <Form.Group className="mb-3" controlId="formGroupEmail">
-//             <Form.Label>Email address</Form.Label>
-//             <Form.Control type="email" value={this.state.email} placeholder="Enter email" onChange={this.emailHandler} required/>
-//             <span id="email" className="text-danger font-weight-bold"></span>
-//           </Form.Group>
-
-//           <Form.Group className="mb-3" controlId="formGroupPassword">
-//             <Form.Label>Password</Form.Label>
-//             <Form.Control type="password" value={this.state.password} placeholder="Enter Password" onChange={this.passwordHandler} required/>
-//             <span id="password1" className="text-danger font-weight-bold"></span>
-//             <span id="password2" className="text-danger font-weight-bold"></span>
-//             <span id="password3" className="text-danger font-weight-bold"></span>
-//           </Form.Group>
-
-//           <Button type="submit" variant="primary">Submit</Button>
-
-//         </Form>
-//       </div>
-//     );
-
-//   }
-
-// }

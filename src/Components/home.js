@@ -11,27 +11,11 @@ import Navebar from './navbar';
 
 
 function Home() {
-
-
-  // let [dta,setdta] = useState()
+  
 
   const [l2val, setL2val] = useState()
 
 
-
-
-  // const hello2 = (value) => {
-  //      catalog = value;
-  //      console.log(catalog);
-  // }
-  // console.log(hello2);
-
-  // function hello(item) {
-
-
-  // }
-
-  // console.log(L1);
   const L2link = (props) => {
     setL2val(props)
   }

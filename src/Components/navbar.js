@@ -10,12 +10,6 @@ import Dropdownlist from './dropdownlist';
 
 
 function Navebar() {
-
-    // const hello = (value) => {
-    //     const x = value;
-    //     console.log(x);
-    //     props.navdata(x)
-    // }
     
     return (
         <div>
@@ -26,7 +20,7 @@ function Navebar() {
                 </Navbar.Brand>
 
                 <div className="drp">
-                    <Dropdownlist />       {/* drpdata={hello} */}
+                    <Dropdownlist />      
                 </div>
 
                 &nbsp;&nbsp;
