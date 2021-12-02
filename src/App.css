@@ -12,9 +12,9 @@
 
 .App {
   height: 1050px;
-  
+  margin-top: 70px;
 }
-
+ 
 .err{
   text-align: center;
   padding: 200px;

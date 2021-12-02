@@ -1,0 +1,46 @@
+
+.homebar {
+    margin-top:-20px;
+    background-color: white;
+    box-shadow: 0px 2px 5px 3px rgb(0 0 0 / 15%);
+    position: sticky;
+    height: auto;
+    float: left;
+    max-width: 300px;
+  }
+
+  .circle {
+    background-color: rgb(56, 106, 197);
+    border-radius: 150px;
+    width: 35px;
+    height: 35px;
+    color: white;
+    padding: 11px;
+  }
+
+  .circle1 {
+    background-color: rgb(56, 106, 197);
+    border-radius: 150px;
+    width: 35px;
+    height: 35px;
+    color: white;
+    padding: 8px;
+  }
+
+  .group {
+    margin-top: 10px;
+  }
+
+  .contactlist {
+    margin-top: 10px;
+    align-items: center;
+  }
+
+ .card {
+   margin-top: 70px;
+   align-items: center;
+   border: none;
+ }
+ 
+ 
+

@@ -4,7 +4,7 @@ const initialState = {
     clickdata: []
 }
 
-export default function clickeditems(state = initialState, action) {
+ const clickeditems = (state = initialState, action) => {
     switch (action.type) {
         case "ADD_data":
             // console.log(action);
@@ -16,3 +16,10 @@ export default function clickeditems(state = initialState, action) {
             return state
     }
 }
+
+
+
+
+export default clickeditems;
+
+

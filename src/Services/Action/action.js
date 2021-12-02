@@ -7,3 +7,38 @@ export const clickedData = (data) => {
         data: data
     }
 }
+
+// export const loginKey = (data) => {
+//     // console.log("action "+data);
+//     return {
+//         type: "SIGN_IN",
+//         data: data
+//     }
+// }
+
+// export const logoutKey = (data) => {
+//     // console.log("action "+data);
+//     return {
+//         type: "SIGN_OUT",
+//         data: data
+//     }
+// }
+
+
+export const addData = (data) => {
+    // console.log("action "+data);
+    return {
+        type: "SIGN_IN",
+        data: data
+    }
+}
+
+
+export const removeData = (data) => {
+    // console.log("action "+data);
+    return {
+        type: "SIGN_OUT",
+        data: data
+    }
+}
+

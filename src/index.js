@@ -14,7 +14,7 @@ console.log(store);
 ReactDOM.render(
   <Provider store={store} >
     <App />
-    </Provider>,
+  </Provider>,
   document.getElementById('root')
 );
-serviceWorker.unregister();
+serviceWorker.unregister(); 

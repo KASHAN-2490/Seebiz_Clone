@@ -1,48 +1,66 @@
 import React from 'react';
 import './App.css';
-import SignupForm from './Components/Signup'
-import Signin from './Components/Signin';
-import Home from './Components/home';
-
+import Header from './Components/header';
 import FooterPage from './Components/footer';
+import RoutingPage from './Routes/routing'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Switch, NavLink } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import { useState, createContext } from 'react';
 
+import { addData } from "./Services/Action/action";
+import { useDispatch } from 'react-redux';
 
+export const userContext = createContext();
 
-const Routing = () => {
-  return (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/signup" component={SignupForm} />
-      <Route path="/signin" component={Signin} />
-      <Route path="*" component={Error} />
-    </Switch>
-  )
-}
 
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        
-        <Routing />
-        
-      </div>
-      <FooterPage />
-    </Router>
-  );
+
+  
+  const [_, updateApp] = useState();
+
+
+function ReloadData () {
+
+  const dispatch = useDispatch();
+
+  let user = window.localStorage.getItem(true);
+  // user = JSON.parse(user)
+  // console.log("App: ", user);
+
+const request = async () => {
+
+  const res = await fetch("http://localhost:7000/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: user
+  })
+  const data = await res.json();
+  console.log("App: ", data.name);
+  dispatch(addData(data.name))
+
 }
+request();
 
-
-function Error() {
-  return (
-    <div className="err">
-      <h1>404</h1>
-      <h3>Page not found</h3>
-      <NavLink to="/">Go Back</NavLink>
+  return(
+    <div>
     </div>
   )
+}
+
+  return (
+    <Router>
+        <userContext.Provider value={{ updateApp }}>
+          <Header />
+          <div className="App">
+          <RoutingPage />
+          </div>
+        </userContext.Provider>
+      <FooterPage />
+      <ReloadData />
+    </Router>
+  );
 }
 
 

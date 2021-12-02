@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import logo from '../logo.svg';
 
 
+
 const initialstate = {
     username: "",
     email: "",
@@ -21,7 +22,6 @@ const initialstate = {
 const initialval = "";
 
 function SignupForm() {
-
 
 
 

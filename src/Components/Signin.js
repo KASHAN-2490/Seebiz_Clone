@@ -5,14 +5,30 @@ import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import logo from '../logo.svg';
 
-import { useHistory } from "react-router-dom";
+import { addData } from "../Services/Action/action";
+import { useDispatch } from 'react-redux';
+
+import { useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import { userContext } from '../App';
+
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 
 const initialstate = { email: "", password: "", mailerr: "", passerr: "" }
 
-const initialval = {success: "", errormsg: ""};
+const initialval = { success: "", errormsg: "" };
 
 
 function Signin() {
+
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+  const {updateApp} = useContext(userContext);
+
+  // console.log('Signin '+ key);
 
 
   const [state, setState] = useState(initialstate)
@@ -72,7 +88,6 @@ function Signin() {
 
   }
 
-  const history = useHistory();
 
   const goback = () => {
     history.push('/');
@@ -132,24 +147,48 @@ function Signin() {
           ...prevState,
           passerr: data.passmsg
         }));
-        
+
       } else if (data.msg) {
         setMessage(prevState => ({
           ...prevState,
           success: data.msg
         }));
-        setState(initialstate);
-        document.getElementById("forms").reset();
-        setTimeout(function () { setMessage(initialval) }, 3000);
-        
+
+        console.log("Token: ", data.token);
+
+        if (data.key === true) {
+
+          dispatch(addData(data.name))
+
+          cookies.set('Token', data.token, {
+            //  path: '/',
+            //  maxAge: 5000,
+             expires: new Date(Date.now() + 25892000000),
+          });
+
+          window.localStorage.setItem(data.key, JSON.stringify({Email: data.email}));
+
+          updateApp(2)
+
+          // setKey(data.key); 
+          
+          history.push('/home');
+          
+        }
+        // else {
+        //   setState(initialstate);
+        //   document.getElementById("forms").reset();
+        //   setTimeout(function () { setMessage(initialval) }, 3000);
+        // }
+
       } else if (data.errmsg) {
         setMessage(prevState => ({
           ...prevState,
           errormsg: data.errmsg
-        }));;
+        }));
         setTimeout(function () { setMessage(initialval) }, 2000);
       }
-      
+
 
     } catch (err) {
       console.log(err);
@@ -184,7 +223,7 @@ function Signin() {
 
           <Form.Group className="mb-3" controlId="formGroupEmail">
             <Form.Label>Email address <span className="star">*</span></Form.Label>
-            <Form.Control type="email" value={state.email} placeholder="Enter email" onChange={emailHandler} className="input" />
+            <Form.Control type="email" value={state.email} placeholder="Enter email" onChange={emailHandler}/>
             <span className="text-danger font-weight-bold">{state.mailerr}</span>
           </Form.Group>
 

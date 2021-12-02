@@ -5,6 +5,7 @@ import './Footer.css'
 import logo from '../logo.svg'
 
 const FooterPage = () => {
+// console.log("footer");
     return (
         <MDBFooter color="blue" className="footer font-small pt-4">
             <MDBContainer fluid className="text-center text-md-left">

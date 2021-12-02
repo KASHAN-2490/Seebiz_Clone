@@ -1,5 +1,5 @@
 import React from 'react';
-import './Sidebar.css';
+import './Leftbar.css';
 import { Image } from 'react-bootstrap';
 import img from '../images/fedex-ad.jfif'
 import img2 from '../images/ims-ad.jfif'
@@ -9,7 +9,7 @@ import List from '@mui/material/List';
 
 
 
-function Sidebar2() {
+function Rightbar() {
     return (
 
         <div className="sidebar2 col-sm-3">
@@ -111,4 +111,4 @@ function Sidebar2() {
     )
 }
 
-export default Sidebar2;
+export default Rightbar;

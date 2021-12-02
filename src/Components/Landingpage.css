@@ -1,0 +1,14 @@
+
+
+
+.landing {
+    margin-top: -20px;
+}
+
+.parent {
+    /* display: flex; */
+    float: left;
+    text-align: justify;
+    margin-left: -60px;
+    margin-bottom: 40px;
+}
