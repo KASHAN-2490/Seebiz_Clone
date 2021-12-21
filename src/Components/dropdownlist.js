@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 
 
 
+
 function Dropdownlist() {
 
 
@@ -18,7 +19,7 @@ function Dropdownlist() {
 
     const [data, setData] = useState([])
 
-  
+
 
     const getDeta = async () => {
         const response = await fetch('https://dev.api.seebiz.com/api/1.0/home/fetchCategoryByName?page=menu');
@@ -31,6 +32,11 @@ function Dropdownlist() {
         getDeta();
     }, [])
 
+
+    const storeData = async (item) => {
+        dispatch(clickedData(item));
+
+    }
 
 
 
@@ -48,7 +54,7 @@ function Dropdownlist() {
                             return (
                                 // {`/categories/${item.L1}`}
                                 <div key={item.L1}>
-                                    <NavDropdown.Item as={NavLink} to={`/categories/${item.L1}`} className="list" onClick={() => dispatch(clickedData(item))}>    
+                                    <NavDropdown.Item as={NavLink} to={`/categories/${item.link}`} className="list" onClick={() => storeData(item)}>
                                         {/* <i className="fas fa-tshirt"></i>&nbsp; {item.name} */}
                                         {item.name}
 
@@ -92,10 +98,15 @@ function Dropdownlist() {
                     }
 
                 </div>
-           
+
+
+                {/* <div className="mainlist3">
+                    
+                </div> */}
 
                 <div className="child2">
-                    <p><b>All Catagories</b></p>
+                <NavLink to={`/allcategories`}>All Catagories</NavLink>
+                    {/* <p></p> */}
                 </div>
 
             </div>

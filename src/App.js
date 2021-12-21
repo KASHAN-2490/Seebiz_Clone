@@ -37,7 +37,7 @@ const request = async () => {
     body: user
   })
   const data = await res.json();
-  console.log("App: ", data.name);
+  // console.log("App: ", data.name);
   dispatch(addData(data.name))
 
 }

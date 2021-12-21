@@ -8,7 +8,7 @@ import Categories from '../Components/Categories';
 import Landingpage from '../Components/landingPage';
 import Home from '../Components/home';
 // import Logout from '../Components/logout';
-
+import AllCategories from '../Components/allCategories';
 import Protected from './protectroutes';
 import Authenticate from './authroutes';
 
@@ -19,8 +19,11 @@ function RoutingPage() {
     return (
         <Switch>
             <Route exact path="/" component={Landingpage} />
-            <Route path="/categories" component={Categories} />
-            <Route path="/categories/:id" component={Categories} />
+            <Route path="/allcategories" component={AllCategories} />
+            <Route exact path="/categories" component={Categories} />
+            <Route exact path="/categories/:name" component={Categories} />
+            <Route exact path="/categories/:name/:name2" component={Categories} />
+            <Route path="/categories/:name/:name2/:name3" component={Categories} />
             <Authenticate path="/signup" component={SignupForm} />
             <Authenticate path="/signin" component={Signin} />
             <Protected path="/home" component={Home} />

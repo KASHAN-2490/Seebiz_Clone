@@ -108,6 +108,9 @@
   .mainlist2 {
     display: none;
   }
+  .mainlist3 {
+    display: none;
+  }
 
   .main:hover .mainlist {
     position: absolute;
@@ -132,6 +135,16 @@
       box-shadow: 1px 1px 5px lightgrey;
   }
 
+  /* .main:hover .mainlist3 {
+    position: absolute;
+    display: block;
+    width: 725px;
+    height: 385px;
+    margin-left: 195px;
+    font-size: 12px;
+    background-color: white;
+} */
+
   .child {
     display: none;
   }
@@ -141,9 +154,14 @@
     margin-left: -7px;
   }
 
+  /* .list:visited {
+    text-decoration: none;
+    color: black;
+  } */
+
   .list:hover .child {
-    /* position: fixed;
-    display: block; */
+    position: relative;
+    /* display: block; */
     margin-left: 195px;
     margin-top: -30px;
     /* text-align: start; */

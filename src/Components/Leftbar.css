@@ -7,7 +7,8 @@
     position: sticky;
     height: auto;
     float: left;
-    max-width: 320px;
+    width: 90%;
+    max-width: 400px;
   }
   
   .top {
@@ -134,4 +135,12 @@
   .listing:hover {
     color: blue;
     cursor: pointer;
+  }
+
+  .navlink:link {
+    text-decoration: none;
+  }
+
+  .navlink:visited {
+    color: black
   }

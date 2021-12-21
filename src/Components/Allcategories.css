@@ -1,0 +1,28 @@
+/* .scrollable {
+    height: 2000px;
+} */
+
+.maindiv {
+   display: flex;
+   flex-direction: column;
+}
+
+.childdiv {
+    display: flex;  
+    flex-wrap: wrap;
+    font-size: 12px;
+    padding: 5px;
+  }
+
+.sbchild1 {
+    width: 220px;
+    overflow-wrap: break-word;
+  }
+
+  ul.ba {
+    list-style-type: none;
+    margin-left: -30px;
+  }
+  .ba li {
+    height: 4px;
+  }

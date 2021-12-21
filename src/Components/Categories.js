@@ -1,60 +1,73 @@
 import React, { useState } from 'react';
-
+import { Row } from 'react-bootstrap';
 import Leftbar from './leftbar';
 import Rightbar from './rightbar';
 import Middle from './middle';
-// import Header from './header';
+import { Col } from 'react-bootstrap';
 
-// import { useContext } from 'react';
-// import { userContext } from '../App';
+// import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
+// import { useParams } from 'react-router-dom';
 
-// import { useParams } from "react-router-dom";
-
-
-
-// export const catalogData = React.createContext();
 
 
 function Categories() {
 
+  // const { path } = useRouteMatch();
+  // console.log("path ", path);
 
-  // const {key} = useContext(userContext);
-  // console.log("Categories "+key);
+  // const { name3 } = useParams();
+  // console.log("params", name3);
 
-  // const name = useParams();
-  // console.log(name);
-  
 
   const [l2val, setL2val] = useState()
 
+  
 
-  const L2link = (props) => {
+  // console.log("page1 ", page)
+
+  const L2link = async (props) => {
     setL2val(props)
+
   }
 
 
 
   return (
-    // <catalogData.Provider value={L2link}>
-    <div className="row-sm-12" >
-      {/* <div>
-      <Header />
-      </div> */}
-     
-      <div>
+    <>
+      <Row>
         <Leftbar link1={L2link} />
-      </div>
+        <Middle value={l2val}/>
+        <Col md={3}><Rightbar /></Col>
+      </Row>
 
-      <div>
-        <Rightbar />
-      </div>
 
-      <div>
-        <Middle value={l2val} />
-      </div>
-    </div>
-    // </catalogData.Provider>
+
+      {/* <Switch>
+        
+        <Route exact path={`${path}/:name`} >
+          <Row>
+            <Leftbar link1={L2link} />
+            <Middle value={l2val} />
+          </Row>
+        </Route>
+
+        <Route exact path={`${path}/:name/:name2`} >
+          <Row>
+            <Leftbar link1={L2link} />
+            <Middle value={l2val} />
+          </Row>
+        </Route>
+
+        <Route path={`${path}/:name/:name2/:name3`} >
+          <Row>
+            <Leftbar link1={L2link} />
+            <Middle value={l2val} />
+          </Row>
+        </Route>
+      </Switch> */}
+
+    </>
   );
 }
 export default Categories;

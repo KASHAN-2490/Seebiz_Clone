@@ -5,5 +5,5 @@ import keyValue from "./keyreducer";
 
 export default combineReducers({
     clickeditems,
-    keyValue
+    keyValue,
 });

@@ -26,7 +26,7 @@ function Header() {
     const history = useHistory();
 
     const token = cookies.get('Token');
-    console.log("token: ", token);
+    // console.log("token: ", token);
 
     // let user = window.localStorage.getItem(true);
 
