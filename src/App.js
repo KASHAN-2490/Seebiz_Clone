@@ -9,54 +9,57 @@ import { useState, createContext } from 'react';
 
 import { addData } from "./Services/Action/action";
 import { useDispatch } from 'react-redux';
+import socket from './Components/io'
 
 export const userContext = createContext();
 
 
 function App() {
 
-  
+
   const [_, updateApp] = useState();
 
 
-function ReloadData () {
+  function ReloadData() {
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  let user = window.localStorage.getItem(true);
-  // user = JSON.parse(user)
-  // console.log("App: ", user);
+    let user = window.localStorage.getItem(true);
+    // user = JSON.parse(user)
+    // console.log("App: ", user);
 
-const request = async () => {
+    const request = async () => {
 
-  const res = await fetch("http://localhost:7000/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: user
-  })
-  const data = await res.json();
-  // console.log("App: ", data.name);
-  dispatch(addData(data.name))
+      const res = await fetch("http://localhost:7000/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: user
+      })
+      const data = await res.json();
 
-}
-request();
+      socket.emit('newUser', data.name);
+      // console.log("App: ", data.name);
+      dispatch(addData(data.name))
 
-  return(
-    <div>
-    </div>
-  )
-}
+    }
+    request();
+
+    return (
+      <div>
+      </div>
+    )
+  }
 
   return (
     <Router>
-        <userContext.Provider value={{ updateApp }}>
-          <Header />
-          <div className="App">
+      <userContext.Provider value={{ updateApp }}>
+        <Header />
+        <div className="App">
           <RoutingPage />
-          </div>
-        </userContext.Provider>
+        </div>
+      </userContext.Provider>
       <FooterPage />
       <ReloadData />
     </Router>

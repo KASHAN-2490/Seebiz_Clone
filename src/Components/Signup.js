@@ -230,6 +230,7 @@ function SignupForm() {
                 } else if (data.key === true) {
                     setSuccess(data.msg);
 
+
                     document.getElementById("forms").reset();
                     setState(initialstate);
                     // alert(data.msg);

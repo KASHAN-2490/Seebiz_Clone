@@ -1,9 +1,9 @@
 import { combineReducers } from "redux"; 
 
-import clickeditems from "./clickreducer";
+import categoryitems from "./categoryReducer";
 import keyValue from "./keyreducer";
 
 export default combineReducers({
-    clickeditems,
+    categoryitems,
     keyValue,
 });

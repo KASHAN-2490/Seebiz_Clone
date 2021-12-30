@@ -23,13 +23,13 @@ import Typography from '@mui/material/Typography';
 function HomeLeftbar() {
     return (
 
-        <div className="homebar col-sm-3">
+        <div className="homebar">
 
 
             <List
                 sx={{
-                    width: '100%', bgcolor: 'background.paper', height: "1060px", overflow: 'auto',
-                    maxHeight: 1060, '& button': { paddingTop: 2 },
+                    bgcolor: 'background.paper', height: "1060px", overflow: 'auto',
+                    maxHeight: 1060, '& button': { paddingTop: 2 }, maxWidth: 400,
                 }}
                 component="nav"
                 aria-labelledby="nested-list-subheader"  >

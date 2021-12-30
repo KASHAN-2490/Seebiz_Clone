@@ -1,6 +1,6 @@
 // import { Add_data } from "../constant"
 
-export const clickedData = (data) => {
+export const categoryData = (data) => {
 // console.log(data);
     return {
         type: "ADD_data",

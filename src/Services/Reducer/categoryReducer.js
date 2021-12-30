@@ -4,7 +4,7 @@ const initialState = {
     clickdata: []
 }
 
- const clickeditems = (state = initialState, action) => {
+ const categoryitems = (state = initialState, action) => {
     switch (action.type) {
         case "ADD_data":
             // console.log(action);
@@ -20,6 +20,6 @@ const initialState = {
 
 
 
-export default clickeditems;
+export default categoryitems;
 
 

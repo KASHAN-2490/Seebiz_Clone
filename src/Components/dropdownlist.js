@@ -3,7 +3,7 @@ import './Header.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Dropdown, NavDropdown, Button } from 'react-bootstrap';
 
-import { clickedData } from "../Services/Action/action";
+import { categoryData } from "../Services/Action/action";
 
 import { useDispatch } from 'react-redux';
 import { NavLink } from "react-router-dom";
@@ -34,7 +34,7 @@ function Dropdownlist() {
 
 
     const storeData = async (item) => {
-        dispatch(clickedData(item));
+        dispatch(categoryData(item));
 
     }
 

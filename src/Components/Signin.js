@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import logo from '../logo.svg';
-
+import socket from './io';
 import { addData } from "../Services/Action/action";
 import { useDispatch } from 'react-redux';
 
@@ -157,6 +157,9 @@ function Signin() {
         console.log("Token: ", data.token);
 
         if (data.key === true) {
+
+          socket.emit('newUser', data.name);
+          // console.log("value ", data.name);
 
           dispatch(addData(data.name))
 

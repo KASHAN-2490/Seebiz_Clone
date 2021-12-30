@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Header.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, Button, Form, FormControl, NavDropdown } from 'react-bootstrap';
 import { NavLink, useLocation } from "react-router-dom";
+import Badge from '@mui/material/Badge';
+import IconButton from '@mui/material/IconButton';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import logo from '../logo.svg'
 import Dropdownlist from './dropdownlist';
 import Logout from '../Components/logout';
 import { useHistory } from 'react-router-dom';
-
 import Cookies from 'universal-cookie';
-
+import socket from './io';
 
 // import { useContext } from 'react';
 // import { userContext } from '../App';
@@ -20,6 +22,15 @@ import { useSelector } from 'react-redux';
 
 
 function Header() {
+
+    const [open, setOpen] = useState(false);
+
+    // const [clear, setClear] = useState(true);
+
+    let [count, setCount] = useState(0);
+
+    const [data, setData] = useState([]);
+
 
     const cookies = new Cookies();
 
@@ -32,7 +43,7 @@ function Header() {
 
     const myValue = useSelector((state) => state.keyValue.clickdata);
     // console.log("Login: ", myValue);
-
+  
 
     let loc = useLocation();
     // console.log(loc.pathname);
@@ -42,10 +53,44 @@ function Header() {
         return (<div></div>);
     }
 
-
     const goback = () => {
         history.push('/');
     }
+
+
+    function notificationsLabel(counts) {
+        if (counts === 0) {
+            return 'no notifications';
+        }
+        if (counts > 99) {
+            return 'more than 99 notifications';
+        }
+        return `${counts} notifications`;
+    }
+
+
+    socket.on('message', function (datas) { 
+        setData([...data, datas.msg]);
+        setCount(count += datas.count);
+    });
+
+    // socket.on('message1', function(datas){
+    //     console.log(datas);
+    // }); 
+
+    
+    const notifManu = () => {
+        setOpen(!open);
+        setCount(0);
+    }
+
+    // const markRead = () => {
+    //     setData([])
+    // }
+    
+    // console.log(data) 
+    
+    // socket.emit('clientEvent', 'Sent an event from the client!');
 
     return (
         <div>
@@ -95,11 +140,32 @@ function Header() {
                     :
 
                     <Nav className="nav mr-auto">
-                        <div className="homeicon">
-                        <Nav.Link >{myValue}</Nav.Link>
+                        <div className="homeValue">
+                            <Nav.Link >{myValue}</Nav.Link>
                         </div>
+
                         <Nav.Link as={NavLink} to="/home"><i className="fas fa-home"></i></Nav.Link>
                         {/* <Nav.Link as={NavLink} to="/home"><i className="fas fa-bell"></i></Nav.Link> */}
+                        <div className='notifParent'>
+                            <IconButton aria-label={notificationsLabel(count)} onClick={notifManu} className='notification'>
+                                <Badge badgeContent={count} color="primary" >
+                                    <NotificationsIcon className='noticon' />
+                                </Badge>
+                            </IconButton>
+                            {open &&
+                                <div className="notifmanu">
+                                    <Button className='notbtn' onClick={() => setData([])}>Clear</Button>
+                                
+                                    {data.map((item, index)=>{
+                                        return (
+                                         <p key={index}>{item}</p> 
+                                        )
+                                    })}
+                                   
+                                </div>
+                            }
+                        </div>
+
                         <div className="btn">
                             <Logout />
                         </div>

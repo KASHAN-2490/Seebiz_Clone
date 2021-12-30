@@ -219,7 +219,51 @@ ul.ba {
   height: 4px;
 }
 
-.homeicon {
-   padding-left: 30px;
+.homeValue {
+   padding-left: auto;
+   /* display: flex; */
 }
+
+.notification {
+ margin: 7px;
+}
+
+.notifParent {
+  position: relative;
+}
+
+.notifmanu {
+  position: absolute;
+  display: block;
+  /* z-index: 999; */
+  /* float: left; */
+  /* width: 450px; */
+  width: 200px;
+  top: 90%;
+  right: -10px;
+  text-align: left;
+  background-color: #ffffff;
+  padding: 40px 10px;
+  box-shadow: 0px 2px 5px 3px rgb(0 0 0 / 15%);
+}
+
+.notifmanu p {
+  text-align: center;
+  font-size: 15px;
+  background-color: lightgray;
+}
+
+.notbtn {
+  width: 60px;
+  height: 30px;
+  /* text-align: center;
+  align-items: center; */
+  margin-top: -35px;
+  float: right;
+}
+/* 
+.noticon {
+  height: 2px;
+  width: 2px;
+} */
 

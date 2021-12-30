@@ -18,7 +18,7 @@ import { useSelector } from 'react-redux';
 
 function Leftbar(props) {
   
-    const myState = useSelector((state) => state.clickeditems.clickdata);
+    const myState = useSelector((state) => state.categoryitems.clickdata);
 
     
 

@@ -1,7 +1,7 @@
 
-// const initialState = {
-//     loginKey: false
-// }
+const initialState = {
+    clickdata: []
+}
 
 // const keyValue = (state = false, action) => {
 //     // console.log("reducer " + state)
@@ -23,7 +23,7 @@
 
 
 
-const keyValue = (state = "", action) => {
+const keyValue = (state = initialState, action) => {
         // console.log("reducer " + state)
         switch (action.type) {
             case "SIGN_IN":
